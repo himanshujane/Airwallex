@@ -8,15 +8,14 @@ namespace Tests.Fixtures
     {
         //Setting the Test Environment
         public static string TestEnvironment = EnvironmentType.Staging;
-
+        public static TestConfigurationDto Config { get;}
+        
         static EnvironmentFixture()
         {
-            GetEnvironment = EnvironmentSetup();
+            Config = SetupEnvironment();
         }
 
-        public static EnvironmentCustomDto GetEnvironment { get;}
-
-        private static EnvironmentCustomDto EnvironmentSetup()
+        private static TestConfigurationDto SetupEnvironment()
         {
             var environmentFromConsole = Environment.GetEnvironmentVariable("TestEnvironment");
             if (environmentFromConsole != null) TestEnvironment = environmentFromConsole;
@@ -25,11 +24,11 @@ namespace Tests.Fixtures
                 .AddJsonFile("appsettings.Testing.json")
                 .Build();
 
-            return new EnvironmentCustomDto
+            return new TestConfigurationDto
             {
                 TestUrl = config.GetSection($"Environment:{TestEnvironment}:TestUrl").Value,
-                Username = config.GetSection($"Environment:{TestEnvironment}:Username").Value,
-                Password = config.GetSection($"Environment:{TestEnvironment}:Password").Value
+                XClientId = config.GetSection($"Environment:{TestEnvironment}:XClientId").Value,
+                XApiKey = config.GetSection($"Environment:{TestEnvironment}:XApiKey").Value
             };
         }
     }

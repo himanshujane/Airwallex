@@ -20,6 +20,21 @@ namespace Tests.Utility
             var resString = await res.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<BeneficiaryCreatedResponseDto>(resString, Options);
         }
+        
+        public static async Task<ErrorResponseDto> DeserializeErrorResponse(
+            this HttpResponseMessage res)
+        {
+            var resString = await res.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ErrorResponseDto>(resString, Options);
+        }
+        
+        public static async Task<AuthTokenResponseDto> DeserializeAuthTokenResponse(
+            this HttpResponseMessage res)
+        {
+            var resString = await res.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<AuthTokenResponseDto>(resString, Options);
+        }
+
 
         public static HttpContent ConvertToHttpContent(object requestData)
         {

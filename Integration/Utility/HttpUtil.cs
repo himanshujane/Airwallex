@@ -62,15 +62,7 @@ namespace Tests.Utility
             var response = await client.GetAsync(uri);
             return response;
         }
-        
 
-        public static string HttpResponseToString(HttpResponseMessage response)
-        {
-            var output = response.Content.ReadAsStream();
-            var reader = new StreamReader(output);
-            return reader.ReadToEnd();
-        }
-        
         public static string HttpContentToString(HttpContent response)
         {
             var output = response.ReadAsStream();

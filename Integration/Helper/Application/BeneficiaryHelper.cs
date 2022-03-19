@@ -24,13 +24,13 @@ namespace Tests.Helper.Application
             Dictionary<string, string> headers)
         {
             const string url = EndpointUtil.CreateBeneficiaryUrl;
-            _output.WriteLine($"*** Request URL : {url}");
+            _output.WriteLine($"*** Request URL : {url}\n");
 
             var payload = JsonUtil.ConvertToHttpContent(objPayload);
-            _output.WriteLine($"*** Request : {HttpUtil.HttpContentToString(payload)}");
+            _output.WriteLine($"*** Request : {HttpUtil.HttpContentToString(payload)}\n");
 
             var response = await _httpClient.Post(url, payload, headers);
-            _output.WriteLine($"*** Response : {HttpUtil.HttpResponseToString(response)}");
+            _output.WriteLine($"*** Response : {HttpUtil.HttpContentToString(response.Content)}");
 
             return response;
         }

@@ -8,29 +8,30 @@ using Tests.TestDataFactory.BeneficiaryTestData;
 using Tests.Utility;
 using Xunit;
 using Xunit.Abstractions;
+using static Tests.Helper.General.ConstantHelper;
 
 namespace Tests.Specs.Beneficiary
 {
-    public class CreateBeneficiaryTests : IClassFixture<BaseAppFixture>
+    public class CreateBeneficiaryPositiveTests : IClassFixture<BaseAppFixture>
     {
         private readonly BeneficiaryHelper _beneficiaryHelper;
         private readonly Dictionary<string, string> _headers;
 
-        public CreateBeneficiaryTests(BaseAppFixture app, ITestOutputHelper output)
+        public CreateBeneficiaryPositiveTests(BaseAppFixture app, ITestOutputHelper output)
         {
             _beneficiaryHelper = new BeneficiaryHelper(app.HttpClient, output);
             _headers = new Dictionary<string, string>
             {
                 {
-                    "Authorization",
-                    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNDhjYjE4Mi0wNjYxLTQyYzAtYWZjMC02MWQ0ODdkYjg5NjgiLCJzdWIiOiIyODk2ZWJmZC03YjM5LTRjYjktYTE2My00ZGM5NTkyOGI3MzUiLCJpYXQiOjE2NDc2ODgwNTAsImV4cCI6MTY0NzcwMDA1MCwiYWNjb3VudF9pZCI6IjIyNTQ4MzkyLTM4Y2MtNDFiNy04YjFiLWM1YWNjZDAzNzJhOCIsImRhdGFfY2VudGVyX3JlZ2lvbiI6IkhLIiwidHlwZSI6ImNsaWVudCIsImRjIjoiSEsiLCJpc3NkYyI6IlVTIn0.3dfRvsOlN3tYhbvx7Ucbi4OGYsuvHuFsCRjiSN35n1A"
+                    HeaderKeyAuth,
+                    $"Bearer {app.AuthToken}"
                 }
             };
         }
 
         [Theory]
         [CreateBeneficiaryValidTestData]
-        public async Task TestCreateBeneficiary(CreateBeneficiaryRequestDto testData)
+        public async Task TestCreateBeneficiaryReturns201(CreateBeneficiaryRequestDto testData)
         {
             //Act
             var response = await _beneficiaryHelper.CreateBeneficiary(testData.Payload, _headers);
@@ -40,7 +41,7 @@ namespace Tests.Specs.Beneficiary
 
             var dResponse = await response.DeserializeCreateBeneficiary();
             Assert.NotEmpty(dResponse.beneficiary_id);
-            Assert.InRange(dResponse.beneficiary_id.Length, 30,40);
+            Assert.InRange(dResponse.beneficiary_id.Length, 30, 40);
             _beneficiaryHelper.AssertBeneficiaryDetails(testData.Payload, dResponse);
         }
     }
