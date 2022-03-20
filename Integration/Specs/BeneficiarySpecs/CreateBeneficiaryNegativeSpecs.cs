@@ -10,23 +10,17 @@ using Xunit;
 using Xunit.Abstractions;
 using static Tests.Helper.General.ConstantHelper;
 
-namespace Tests.Specs.Beneficiary
+namespace Tests.Specs.BeneficiarySpecs
 {
-    public class CreateBeneficiaryNegativeTests : IClassFixture<BaseAppFixture>
+    public class CreateBeneficiaryNegativeSpecs : IClassFixture<BaseAppFixture>
     {
         private readonly BeneficiaryHelper _beneficiaryHelper;
         private readonly Dictionary<string, string> _headers;
 
-        public CreateBeneficiaryNegativeTests(BaseAppFixture app, ITestOutputHelper output)
+        public CreateBeneficiaryNegativeSpecs(BaseAppFixture app, ITestOutputHelper output)
         {
             _beneficiaryHelper = new BeneficiaryHelper(app.HttpClient, output);
-            _headers = new Dictionary<string, string>
-            {
-                {
-                    HeaderKeyAuth,
-                    $"Bearer {app.AuthToken}"
-                }
-            };
+            _headers = app.AuthTokenHeader;
         }
 
         [Theory]

@@ -9,17 +9,16 @@ namespace Tests.Fixtures
 {
     public class BaseAppFixture : IDisposable
     {
+        public HttpClient HttpClient { get; }
+        public Dictionary<string, string> AuthTokenHeader { get; }
+
         public BaseAppFixture()
         {
             HttpClient = new HttpClient {BaseAddress = new Uri(EnvironmentFixture.Config.TestUrl)};
-            AuthToken = GetAuthToken().GetAwaiter().GetResult();
+            AuthTokenHeader = GetAuthToken().GetAwaiter().GetResult();
         }
 
-        public HttpClient HttpClient { get; }
-
-        public string AuthToken { get; }
-
-        private async Task<string> GetAuthToken()
+        private async Task<Dictionary<string, string>> GetAuthToken()
         {
             var headers = new Dictionary<string, string>
             {
@@ -30,7 +29,13 @@ namespace Tests.Fixtures
                 await HttpClient.Post(EndpointUtil.AuthTokenUrl, null, headers: headers);
             var dResponse = await response.DeserializeAuthTokenResponse();
 
-            return dResponse.token;
+            return new Dictionary<string, string>
+            {
+                {
+                    HeaderKeyAuth,
+                    $"Bearer {dResponse.token}"
+                }
+            };
         }
 
         public void Dispose()

@@ -8,25 +8,18 @@ using Tests.TestDataFactory.BeneficiaryTestData;
 using Tests.Utility;
 using Xunit;
 using Xunit.Abstractions;
-using static Tests.Helper.General.ConstantHelper;
 
-namespace Tests.Specs.Beneficiary
+namespace Tests.Specs.BeneficiarySpecs
 {
-    public class CreateBeneficiaryPositiveTests : IClassFixture<BaseAppFixture>
+    public class CreateBeneficiaryPositiveSpecs : IClassFixture<BaseAppFixture>
     {
         private readonly BeneficiaryHelper _beneficiaryHelper;
         private readonly Dictionary<string, string> _headers;
 
-        public CreateBeneficiaryPositiveTests(BaseAppFixture app, ITestOutputHelper output)
+        public CreateBeneficiaryPositiveSpecs(BaseAppFixture app, ITestOutputHelper output)
         {
             _beneficiaryHelper = new BeneficiaryHelper(app.HttpClient, output);
-            _headers = new Dictionary<string, string>
-            {
-                {
-                    HeaderKeyAuth,
-                    $"Bearer {app.AuthToken}"
-                }
-            };
+            _headers = app.AuthTokenHeader;
         }
 
         [Theory]
