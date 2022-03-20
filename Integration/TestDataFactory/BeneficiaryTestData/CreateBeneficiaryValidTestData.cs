@@ -70,6 +70,30 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
+            var accountNameAsInteger = GetDefaultCreateBeneficiaryPayload();
+            accountNameAsInteger.beneficiary.bank_details.account_name = 123;
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Create Beneficiary: Account Name As Integer",
+                    Payload = accountNameAsInteger
+                }
+            };
+
+            //***
+            var accountNameAsSpecialChar = GetDefaultCreateBeneficiaryPayload();
+            accountNameAsSpecialChar.beneficiary.bank_details.account_name = "!@#$%^&*()_+";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Create Beneficiary: Account Name As Special Char",
+                    Payload = accountNameAsSpecialChar
+                }
+            };
+            
+            //***
             var accountNumberLenghtIs1ForUS = GetDefaultCreateBeneficiaryPayload();
             accountNumberLenghtIs1ForUS.beneficiary.bank_details.account_number = "1";
             yield return new CreateBeneficiaryRequestDto[]
@@ -197,7 +221,7 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Test Swift Code for CN",
+                    _TestName = "Create Beneficiary: Swift Code for CN",
                     Payload = swiftCodeForCN
                 }
             };

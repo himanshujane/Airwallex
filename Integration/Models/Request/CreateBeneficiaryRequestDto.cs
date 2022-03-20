@@ -11,8 +11,8 @@ namespace Tests.Models.Request
     {
       
         public BeneficiaryDetailsDto beneficiary { get; set; }
-        public string nickname { get; set; }
-        public string payer_entity_type { get; set; }
+        public dynamic nickname { get; set; }
+        public dynamic payer_entity_type { get; set; }
         public List<string> payment_methods { get; set; }
     }
 
@@ -21,32 +21,32 @@ namespace Tests.Models.Request
         public BeneficiaryAdditionalInfoDto additional_info { get; set; }
         public BeneficiaryAddressDto address { get; set; }
         public BeneficiaryBankDetailsDto bank_details { get; set; }
-        public string company_name { get; set; }
-        public string entity_type { get; set; }
+        public dynamic company_name { get; set; }
+        public dynamic entity_type { get; set; }
     }
 
     public class BeneficiaryAdditionalInfoDto
     {
-        public string personal_email { get; set; }
+        public dynamic personal_email { get; set; }
     }
 
     public class BeneficiaryAddressDto
     {
-        public string city { get; set; }
-        public string country_code { get; set; }
-        public string postcode { get; set; }
-        public string state { get; set; }
-        public string street_address { get; set; }
+        public dynamic city { get; set; }
+        public dynamic country_code { get; set; }
+        public dynamic postcode { get; set; }
+        public dynamic state { get; set; }
+        public dynamic street_address { get; set; }
     }
 
     public class BeneficiaryBankDetailsDto
     {
-        public string account_currency { get; set; }
-        public string account_name { get; set; }
-        public string account_number { get; set; }
-        public string account_routing_type1 { get; set; }
-        public string bank_country_code { get; set; }
-        public string bank_name { get; set; }
-        public string swift_code { get; set; }
+        public dynamic account_currency { get; set; }
+        public dynamic account_name { get; set; }
+        public dynamic account_number { get; set; }
+        public dynamic account_routing_type1 { get; set; }
+        public dynamic bank_country_code { get; set; }
+        public dynamic bank_name { get; set; }
+        public dynamic swift_code { get; set; }
     }
 }
