@@ -9,7 +9,6 @@ namespace Tests.Models.Request
 
     public class CreateBeneficiaryPayloadDto
     {
-      
         public BeneficiaryDetailsDto beneficiary { get; set; }
         public dynamic nickname { get; set; }
         public dynamic payer_entity_type { get; set; }
@@ -45,6 +44,7 @@ namespace Tests.Models.Request
         public dynamic account_name { get; set; }
         public dynamic account_number { get; set; }
         public dynamic account_routing_type1 { get; set; }
+        public dynamic account_routing_value1 { get; set; }
         public dynamic bank_country_code { get; set; }
         public dynamic bank_name { get; set; }
         public dynamic swift_code { get; set; }

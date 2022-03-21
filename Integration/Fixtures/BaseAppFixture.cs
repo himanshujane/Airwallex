@@ -7,6 +7,11 @@ using static Tests.Helper.General.ConstantHelper;
 
 namespace Tests.Fixtures
 {
+    /*
+     * [Before All Hook]
+     * Purpose of this class is to initialize HttpClient and Auth Header object once
+     * before running all the tests inside a test class.
+     */
     public class BaseAppFixture : IDisposable
     {
         public HttpClient HttpClient { get; }
@@ -38,6 +43,9 @@ namespace Tests.Fixtures
             };
         }
 
+        /*
+         * [After All Hook]
+         */
         public void Dispose()
         {
             HttpClient.Dispose();

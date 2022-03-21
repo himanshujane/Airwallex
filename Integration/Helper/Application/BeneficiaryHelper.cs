@@ -35,7 +35,7 @@ namespace Tests.Helper.Application
             return response;
         }
 
-        public void AssertBeneficiaryDetails(CreateBeneficiaryPayloadDto request,
+        public static void AssertBeneficiaryDetails(CreateBeneficiaryPayloadDto request,
             BeneficiaryCreatedResponseDto response)
         {
             Assert.Equal(request.nickname, response.nickname);

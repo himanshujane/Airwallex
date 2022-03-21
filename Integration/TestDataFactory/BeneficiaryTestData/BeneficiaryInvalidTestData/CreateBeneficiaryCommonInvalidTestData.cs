@@ -2,21 +2,22 @@ using System.Collections.Generic;
 using System.Reflection;
 using Tests.Models.Request;
 using Xunit.Sdk;
+using static Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryValidTestData.CreateBeneficiaryCommonValidTestData;
 
-namespace Tests.TestDataFactory.BeneficiaryTestData
+namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryInvalidTestData
 {
-    public class CreateBeneficiaryInvalidTestData : DataAttribute
+    public class CreateBeneficiaryCommonInvalidTestData : DataAttribute
     {
         public override IEnumerable<CreateBeneficiaryRequestDto[]> GetData(MethodInfo testMethod)
         {
             //***
-            var paymentMethodInvalid = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var paymentMethodInvalid = GetDefaultCreateBeneficiaryPayload();
             paymentMethodInvalid.payment_methods = new List<string> {"Invalid"};
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Payment Method Invalid",
+                    _TestName = "Payment Method Invalid",
                     Payload = paymentMethodInvalid,
                     Expected = new
                     {
@@ -28,13 +29,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var paymentMethodNull = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var paymentMethodNull = GetDefaultCreateBeneficiaryPayload();
             paymentMethodNull.payment_methods = new List<string> {null};
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Payment Method Null",
+                    _TestName = "Payment Method Null",
                     Payload = paymentMethodNull,
                     Expected = new
                     {
@@ -46,13 +47,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var paymentMethodEmpty = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var paymentMethodEmpty = GetDefaultCreateBeneficiaryPayload();
             paymentMethodEmpty.payment_methods = new List<string> {""};
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Payment Method Empty",
+                    _TestName = "Payment Method Empty",
                     Payload = paymentMethodEmpty,
                     Expected = new
                     {
@@ -64,13 +65,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var bankCountryCodeInvalid = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var bankCountryCodeInvalid = GetDefaultCreateBeneficiaryPayload();
             bankCountryCodeInvalid.beneficiary.bank_details.bank_country_code = "XX";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Bank Country Code Invalid",
+                    _TestName = "Bank Country Code Invalid",
                     Payload = bankCountryCodeInvalid,
                     Expected = new
                     {
@@ -82,13 +83,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var bankCountryCodeNull = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var bankCountryCodeNull = GetDefaultCreateBeneficiaryPayload();
             bankCountryCodeNull.beneficiary.bank_details.bank_country_code = null;
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Bank Country Code Null",
+                    _TestName = "Bank Country Code Null",
                     Payload = bankCountryCodeNull,
                     Expected = new
                     {
@@ -100,13 +101,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var bankCountryCodeEmpty = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var bankCountryCodeEmpty = GetDefaultCreateBeneficiaryPayload();
             bankCountryCodeEmpty.beneficiary.bank_details.bank_country_code = "";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Bank Country Code Empty",
+                    _TestName = "Bank Country Code Empty",
                     Payload = bankCountryCodeEmpty,
                     Expected = new
                     {
@@ -118,13 +119,31 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var bankCountryCodeInteger = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var bankCountryCodeHasSpace = GetDefaultCreateBeneficiaryPayload();
+            bankCountryCodeHasSpace.beneficiary.bank_details.bank_country_code = " ";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Bank Country Code Has Space",
+                    Payload = bankCountryCodeHasSpace,
+                    Expected = new
+                    {
+                        Code = "field_required",
+                        Message = "must not be empty",
+                        Source = "beneficiary.bank_details.bank_country_code"
+                    }
+                }
+            };
+
+            //***
+            var bankCountryCodeInteger = GetDefaultCreateBeneficiaryPayload();
             bankCountryCodeInteger.beneficiary.bank_details.bank_country_code = 12;
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Bank Country Code As Integer",
+                    _TestName = "Bank Country Code As Integer",
                     Payload = bankCountryCodeInteger,
                     Expected = new
                     {
@@ -134,15 +153,15 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
                     }
                 }
             };
-            
+
             //***
-            var bankCountryCodeSpecialChar = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var bankCountryCodeSpecialChar = GetDefaultCreateBeneficiaryPayload();
             bankCountryCodeSpecialChar.beneficiary.bank_details.bank_country_code = "*";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Bank Country Code As Special Char",
+                    _TestName = "Bank Country Code As Special Char",
                     Payload = bankCountryCodeSpecialChar,
                     Expected = new
                     {
@@ -152,15 +171,15 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
                     }
                 }
             };
-            
+
             //***
-            var accountNameLessThan2 = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var accountNameLessThan2 = GetDefaultCreateBeneficiaryPayload();
             accountNameLessThan2.beneficiary.bank_details.account_name = "a";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Account Name Length Less Than 2",
+                    _TestName = "Account Name Length Less Than 2",
                     Payload = accountNameLessThan2,
                     Expected = new
                     {
@@ -172,14 +191,14 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var accountNameGreaterThan200 = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var accountNameGreaterThan200 = GetDefaultCreateBeneficiaryPayload();
             accountNameGreaterThan200.beneficiary.bank_details.account_name =
                 "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijx";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Account Name Length Greater Than 200",
+                    _TestName = "Account Name Length Greater Than 200",
                     Payload = accountNameGreaterThan200,
                     Expected = new
                     {
@@ -191,13 +210,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var accountNameEmpty = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var accountNameEmpty = GetDefaultCreateBeneficiaryPayload();
             accountNameEmpty.beneficiary.bank_details.account_name = "";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Account Name Empty",
+                    _TestName = "Account Name Empty",
                     Payload = accountNameEmpty,
                     Expected = new
                     {
@@ -209,13 +228,13 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var accountNameNull = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
+            var accountNameNull = GetDefaultCreateBeneficiaryPayload();
             accountNameNull.beneficiary.bank_details.account_name = null;
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Account Name Null",
+                    _TestName = "Account Name Null",
                     Payload = accountNameNull,
                     Expected = new
                     {
@@ -227,217 +246,221 @@ namespace Tests.TestDataFactory.BeneficiaryTestData
             };
 
             //***
-            var accountNumberGreaterThan17ForUS = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberGreaterThan17ForUS.beneficiary.bank_details.account_number = "123456789123456789";
+            var accountNameHasEmojis = GetDefaultCreateBeneficiaryPayload();
+            accountNameHasEmojis.beneficiary.bank_details.account_name = "Firstname 😊 Lastname";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: US Account Number Greater Than 17",
-                    Payload = accountNumberGreaterThan17ForUS,
+                    _TestName = "Account Name Has Emojis",
+                    Payload = accountNameHasEmojis,
                     Expected = new
                     {
                         Code = "payment_schema_validation_failed",
-                        Message = "Should contain 1 to 17 characters",
-                        Source = "beneficiary.bank_details.account_number"
+                        Message = "Should not contain emojis",
+                        Source = "beneficiary.bank_details.account_name"
                     }
                 }
             };
 
             //***
-            var accountNumberEmpty = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberEmpty.beneficiary.bank_details.account_number = "";
+            var accountNameHasSpace = GetDefaultCreateBeneficiaryPayload();
+            accountNameHasSpace.beneficiary.bank_details.account_name = " ";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Account Number Empty",
-                    Payload = accountNumberEmpty,
+                    _TestName = "Account Name Has Space",
+                    Payload = accountNameHasSpace,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should contain 2 to 200 characters",
+                        Source = "beneficiary.bank_details.account_name"
+                    }
+                }
+            };
+
+            //***
+            var accountNameAsInteger = GetDefaultCreateBeneficiaryPayload();
+            accountNameAsInteger.beneficiary.bank_details.account_name = 123;
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Account Name As Integer",
+                    Payload = accountNameAsInteger,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should not be Integer",
+                        Source = "beneficiary.bank_details.account_name"
+                    }
+                }
+            };
+
+
+            //***
+            var bankNameHasEmoji = GetDefaultCreateBeneficiaryPayload();
+            bankNameHasEmoji.beneficiary.bank_details.bank_name = "JP Morgan 😊";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Bank Name Has Emoji",
+                    Payload = bankNameHasEmoji,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should not contain emojis",
+                        Source = "beneficiary.bank_details.bank_name"
+                    }
+                }
+            };
+
+            //***
+            var bankNameAsNull = GetDefaultCreateBeneficiaryPayload();
+            bankNameAsNull.beneficiary.bank_details.bank_name = null;
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Bank Name Null",
+                    Payload = bankNameAsNull,
                     Expected = new
                     {
                         Code = "payment_schema_validation_failed",
                         Message = "This field is required",
-                        Source = "beneficiary.bank_details.account_number"
+                        Source = "beneficiary.bank_details.bank_name"
                     }
                 }
             };
 
             //***
-            var accountNumberNull = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberNull.beneficiary.bank_details.account_number = null;
+            var bankNameAsEmpty = GetDefaultCreateBeneficiaryPayload();
+            bankNameAsEmpty.beneficiary.bank_details.bank_name = "";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: Account Number Null",
-                    Payload = accountNumberNull,
+                    _TestName = "Bank Name Empty",
+                    Payload = bankNameAsEmpty,
                     Expected = new
                     {
                         Code = "payment_schema_validation_failed",
                         Message = "This field is required",
-                        Source = "beneficiary.bank_details.account_number"
+                        Source = "beneficiary.bank_details.bank_name"
                     }
                 }
             };
 
             //***
-            var accountNumberGreaterThan20ForAU = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberGreaterThan20ForAU.beneficiary.bank_details.account_number = "123456789012345678901";
-            accountNumberGreaterThan20ForAU.beneficiary.bank_details.bank_country_code = "AU";
-            accountNumberGreaterThan20ForAU.beneficiary.bank_details.swift_code = "AAYBAU2S";
+            var bankNameHasSpace = GetDefaultCreateBeneficiaryPayload();
+            bankNameHasSpace.beneficiary.bank_details.bank_name = " ";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: AU Account Number Greater Than 20",
-                    Payload = accountNumberGreaterThan20ForAU,
-                    Expected = new
-                    {
-                        Code = "payment_schema_validation_failed",
-                        Message = "Should contain 6 to 20 characters",
-                        Source = "beneficiary.bank_details.account_number"
-                    }
-                }
-            };
-
-            //***
-            var accountNumberLessThan6ForAU = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberLessThan6ForAU.beneficiary.bank_details.account_number = "12345";
-            accountNumberLessThan6ForAU.beneficiary.bank_details.bank_country_code = "AU";
-            accountNumberLessThan6ForAU.beneficiary.bank_details.swift_code = "AAYBAU2S";
-            yield return new CreateBeneficiaryRequestDto[]
-            {
-                new()
-                {
-                    _TestName = "Create Beneficiary: AU Account Number Less Than 6",
-                    Payload = accountNumberLessThan6ForAU,
-                    Expected = new
-                    {
-                        Code = "payment_schema_validation_failed",
-                        Message = "Should contain 6 to 20 characters",
-                        Source = "beneficiary.bank_details.account_number"
-                    }
-                }
-            };
-
-            //***
-            var accountNumberEmptyForAU = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberEmptyForAU.beneficiary.bank_details.account_number = "";
-            accountNumberEmptyForAU.beneficiary.bank_details.bank_country_code = "AU";
-            accountNumberEmptyForAU.beneficiary.bank_details.swift_code = "AAYBAU2S";
-            yield return new CreateBeneficiaryRequestDto[]
-            {
-                new()
-                {
-                    _TestName = "Create Beneficiary: AU Account Number Empty",
-                    Payload = accountNumberEmptyForAU,
+                    _TestName = "Bank Name Has Space",
+                    Payload = bankNameHasSpace,
                     Expected = new
                     {
                         Code = "payment_schema_validation_failed",
                         Message = "This field is required",
-                        Source = "beneficiary.bank_details.account_number"
+                        Source = "beneficiary.bank_details.bank_name"
                     }
                 }
             };
 
             //***
-            var accountNumberNullForAU = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberNullForAU.beneficiary.bank_details.account_number = null;
-            accountNumberNullForAU.beneficiary.bank_details.bank_country_code = "AU";
-            accountNumberNullForAU.beneficiary.bank_details.swift_code = "AAYBAU2S";
+            var bankNameGreaterThan200Char = GetDefaultCreateBeneficiaryPayload();
+            bankNameGreaterThan200Char.beneficiary.bank_details.bank_name =
+                "Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi Abcdefghi X";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: AU Account Number Null",
-                    Payload = accountNumberNullForAU,
+                    _TestName = "Bank Name Greater Than 200 Char",
+                    Payload = bankNameGreaterThan200Char,
                     Expected = new
                     {
                         Code = "payment_schema_validation_failed",
-                        Message = "This field is required",
-                        Source = "beneficiary.bank_details.account_number"
+                        Message = "Should contain 1 to 200 characters",
+                        Source = "beneficiary.bank_details.bank_name"
                     }
                 }
             };
 
             //***
-            var accountNumberGreaterThan34ForCN = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberGreaterThan34ForCN.beneficiary.bank_details.account_number = "12345678901234567890123456789012345";
-            accountNumberGreaterThan34ForCN.beneficiary.bank_details.bank_country_code = "CN";
-            accountNumberGreaterThan34ForCN.beneficiary.bank_details.swift_code = "BKCHCNBJ110";
+            var accountCurrencyNull = GetDefaultCreateBeneficiaryPayload();
+            accountCurrencyNull.beneficiary.bank_details.account_currency = null;
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: CN Account Number Greater Than 34",
-                    Payload = accountNumberGreaterThan34ForCN,
+                    _TestName = "Account Currency Null",
+                    Payload = accountCurrencyNull,
                     Expected = new
                     {
-                        Code = "payment_schema_validation_failed",
-                        Message = "Should contain 8 to 34 characters",
-                        Source = "beneficiary.bank_details.account_number"
+                        Code = "field_required",
+                        Message = "must not be null",
+                        Source = "beneficiary.bank_details.account_currency"
                     }
                 }
             };
 
             //***
-            var accountNumberLessThan8ForCN = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountNumberLessThan8ForCN.beneficiary.bank_details.account_number = "1234567";
-            accountNumberLessThan8ForCN.beneficiary.bank_details.bank_country_code = "CN";
-            accountNumberLessThan8ForCN.beneficiary.bank_details.swift_code = "BKCHCNBJ110";
+            var accountCurrencyEmpty = GetDefaultCreateBeneficiaryPayload();
+            accountCurrencyEmpty.beneficiary.bank_details.account_currency = "";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: CN Account Number Less Than 8",
-                    Payload = accountNumberLessThan8ForCN,
+                    _TestName = "Account Currency Empty",
+                    Payload = accountCurrencyEmpty,
                     Expected = new
                     {
-                        Code = "payment_schema_validation_failed",
-                        Message = "Should contain 8 to 34 characters",
-                        Source = "beneficiary.bank_details.account_number"
+                        Code = "invalid_argument",
+                        Message =
+                            "beneficiary.bank_details.account_currency is not of the expected type; please refer to our API documentation",
+                        Source = "beneficiary.bank_details.account_currency"
                     }
                 }
             };
-            
+
             //***
-            var accountRoutingTypeNullForAU = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountRoutingTypeNullForAU.beneficiary.bank_details.account_number = "123456789";
-            accountRoutingTypeNullForAU.beneficiary.bank_details.bank_country_code = "AU";
-            accountRoutingTypeNullForAU.beneficiary.bank_details.swift_code = "AAYBAU2S";
-            accountRoutingTypeNullForAU.beneficiary.bank_details.account_routing_type1 = null;
+            var accountCurrencyHasSpace = GetDefaultCreateBeneficiaryPayload();
+            accountCurrencyHasSpace.beneficiary.bank_details.account_currency = " ";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "Create Beneficiary: AU Account Routing Type Null",
-                    Payload = accountRoutingTypeNullForAU,
+                    _TestName = "Account Currency Has Space",
+                    Payload = accountCurrencyHasSpace,
+                    Expected = new
+                    {
+                        Code = "invalid_argument",
+                        Message =
+                            "beneficiary.bank_details.account_currency is not of the expected type; please refer to our API documentation",
+                        Source = "beneficiary.bank_details.account_currency"
+                    }
+                }
+            };
+
+            //***
+            var swiftCodeNull = GetDefaultCreateBeneficiaryPayload();
+            swiftCodeNull.beneficiary.bank_details.swift_code = null;
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Swift Code Null",
+                    Payload = swiftCodeNull,
                     Expected = new
                     {
                         Code = "payment_schema_validation_failed",
                         Message = "This field is required",
-                        Source = "beneficiary.bank_details.account_routing_type1"
-                    }
-                }
-            };
-            
-            //***
-            var accountRoutingTypeEmptyForAU = CreateBeneficiaryValidTestData.GetDefaultCreateBeneficiaryPayload();
-            accountRoutingTypeEmptyForAU.beneficiary.bank_details.account_number = "123456789";
-            accountRoutingTypeEmptyForAU.beneficiary.bank_details.bank_country_code = "AU";
-            accountRoutingTypeEmptyForAU.beneficiary.bank_details.swift_code = "AAYBAU2S";
-            accountRoutingTypeEmptyForAU.beneficiary.bank_details.account_routing_type1 = "";
-            yield return new CreateBeneficiaryRequestDto[]
-            {
-                new()
-                {
-                    _TestName = "Create Beneficiary: AU Account Routing Type Null",
-                    Payload = accountRoutingTypeEmptyForAU,
-                    Expected = new
-                    {
-                        Code = "payment_schema_validation_failed",
-                        Message = "This field is required",
-                        Source = "beneficiary.bank_details.account_routing_type1"
+                        Source = "beneficiary.bank_details.swift_code"
                     }
                 }
             };

@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Tests.Fixtures;
 using Tests.Helper.Application;
 using Tests.Models.Request;
-using Tests.TestDataFactory.BeneficiaryTestData;
+using Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryValidTestData;
 using Tests.Utility;
 using Xunit;
 using Xunit.Abstractions;
+using static Tests.Helper.Application.BeneficiaryHelper;
 
 namespace Tests.Specs.BeneficiarySpecs
 {
@@ -23,8 +24,11 @@ namespace Tests.Specs.BeneficiarySpecs
         }
 
         [Theory]
-        [CreateBeneficiaryValidTestData]
-        public async Task TestCreateBeneficiaryReturns201(CreateBeneficiaryRequestDto testData)
+        [CreateBeneficiaryCommonValidTestData]
+        [CreateBeneficiaryUnitedStatesValidTestData]
+        [CreateBeneficiaryChinaValidTestData]
+        [CreateBeneficiaryAustraliaValidTestData]
+        public async Task TestCreateBeneficiaryShouldReturn201(CreateBeneficiaryRequestDto testData)
         {
             //Act
             var response = await _beneficiaryHelper.CreateBeneficiary(testData.Payload, _headers);
@@ -35,7 +39,7 @@ namespace Tests.Specs.BeneficiarySpecs
             var dResponse = await response.DeserializeCreateBeneficiary();
             Assert.NotEmpty(dResponse.beneficiary_id);
             Assert.InRange(dResponse.beneficiary_id.Length, 30, 40);
-            _beneficiaryHelper.AssertBeneficiaryDetails(testData.Payload, dResponse);
+            AssertBeneficiaryDetails(testData.Payload, dResponse);
         }
     }
 }
