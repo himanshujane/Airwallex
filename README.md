@@ -12,7 +12,7 @@ This test framework is designed using a feature-rich xUnit test framework and fo
 ## How to install and run the API test suite
 ### Prerequisite
 
-One should make sure .Net (v5.0) is installed on your operating system. Install from this site - [Click here]()
+One should make sure .Net (v5.0) is installed on your operating system. Install from this site - [Click here](https://dotnet.microsoft.com/en-us/download/dotnet/5.0)
 
 ### Instructions to run the API test suite
 
