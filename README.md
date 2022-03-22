@@ -12,8 +12,15 @@ This test framework is designed using a feature-rich xUnit test framework and fo
 ## How to install and run the API test suite
 ### Prerequisite
 
-One should make sure .Net (v5.0) is installed on your operating system. Install from this site - [Click here](https://dotnet.microsoft.com/en-us/download/dotnet/5.0)
+One should make sure .Net (v5.0) is installed on your operating system. 
 
+- Install .Net (v5.0) for your Operating system from the official website - [Click here](https://dotnet.microsoft.com/en-us/download/dotnet/5.0)
+- Run Command 
+```
+dotnet nuget locals all --clear
+dotnet nuget add source https://api.nuget.org/v3/index.json -n DefaultNuget 
+```
+  
 ### Instructions to run the API test suite
 
 - Open the test suite in any code editor
@@ -31,6 +38,12 @@ dotnet test --logger "console;verbosity=minimal"
 ### To run all the tests on different environment
 [Environment details defined in appsettings.Testing.json]
 
+Terminal [macOS]
 ```
 TestEnvironment=Staging dotnet test
+```
+
+Powershell [Windows]
+```
+$env:TestEnvironment="Staging"; dotnet test
 ```
