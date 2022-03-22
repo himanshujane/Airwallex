@@ -81,6 +81,24 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryInvalidTestData
                     }
                 }
             };
+            
+            //***
+            var accountNumberHaveSpecialCharForAU = GetDefaultCreateBeneficiaryAustraliaPayload();
+            accountNumberHaveSpecialCharForAU.beneficiary.bank_details.account_number = "123@56";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "AU Account Number Have Special Char",
+                    Payload = accountNumberHaveSpecialCharForAU,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should contain alphanumeric characters only",
+                        Source = "beneficiary.bank_details.account_number"
+                    }
+                }
+            };
 
             //***
             var accountRoutingTypeInvalidForAU = GetDefaultCreateBeneficiaryAustraliaPayload();

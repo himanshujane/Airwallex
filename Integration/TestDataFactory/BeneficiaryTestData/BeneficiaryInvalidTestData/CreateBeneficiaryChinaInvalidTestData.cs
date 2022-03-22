@@ -46,6 +46,78 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryInvalidTestData
                     }
                 }
             };
+            
+            //***
+            var accountNumberHaveSpecialCharForCN = GetDefaultCreateBeneficiaryChinaPayload();
+            accountNumberHaveSpecialCharForCN.beneficiary.bank_details.account_number = "1234@678";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "CN Account Number Have Special Char",
+                    Payload = accountNumberHaveSpecialCharForCN,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should contain alphanumeric characters only",
+                        Source = "beneficiary.bank_details.account_number"
+                    }
+                }
+            };
+            
+            //***
+            var accountNumberNullForCN = GetDefaultCreateBeneficiaryChinaPayload();
+            accountNumberNullForCN.beneficiary.bank_details.account_number = null;
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "CN Account Number Null",
+                    Payload = accountNumberNullForCN,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "This field is required",
+                        Source = "beneficiary.bank_details.account_number"
+                    }
+                }
+            };
+            
+            //***
+            var accountNumberEmptyForCN = GetDefaultCreateBeneficiaryChinaPayload();
+            accountNumberEmptyForCN.beneficiary.bank_details.account_number = "";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "CN Account Number Empty",
+                    Payload = accountNumberEmptyForCN,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "This field is required",
+                        Source = "beneficiary.bank_details.account_number"
+                    }
+                }
+            };
+            
+            //***
+            var accountNumberHaveSpaceForCN = GetDefaultCreateBeneficiaryChinaPayload();
+            accountNumberHaveSpaceForCN.beneficiary.bank_details.account_number = " ";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "CN Account Number Have Space",
+                    Payload = accountNumberHaveSpaceForCN,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should contain alphanumeric characters only",
+                        Source = "beneficiary.bank_details.account_number"
+                    }
+                }
+            };
         }
     }
 }

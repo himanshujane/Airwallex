@@ -45,6 +45,24 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryInvalidTestData
                     }
                 }
             };
+            
+            //***
+            var accountNumberHaveSpecialCharForUS = GetDefaultCreateBeneficiaryPayload();
+            accountNumberHaveSpecialCharForUS.beneficiary.bank_details.account_number = "5000@121";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "US Account Number Have Special Char",
+                    Payload = accountNumberHaveSpecialCharForUS,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should contain alphanumeric characters only",
+                        Source = "beneficiary.bank_details.account_number"
+                    }
+                }
+            };
 
             //***
             var accountNumberNullForUS = GetDefaultCreateBeneficiaryPayload();

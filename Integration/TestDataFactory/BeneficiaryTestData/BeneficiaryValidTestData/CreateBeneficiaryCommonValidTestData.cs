@@ -105,6 +105,30 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryValidTestData
                     Payload = accountNameHasChineseChar
                 }
             };
+            
+            //***
+            var bankNameLengthEqualTo2 = GetDefaultCreateBeneficiaryPayload();
+            bankNameLengthEqualTo2.beneficiary.bank_details.account_name = "大B";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Bank Name Length Equal To 2",
+                    Payload = bankNameLengthEqualTo2
+                }
+            };
+            
+            //***
+            var bankNameLengthEqualTo200 = GetDefaultCreateBeneficiaryPayload();
+            bankNameLengthEqualTo200.beneficiary.bank_details.account_name = "AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% AB 大明 @@ 12 && ** #% 12 && ** #1";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Bank Name Length Equal To 200",
+                    Payload = bankNameLengthEqualTo200
+                }
+            };
         }
 
         public static CreateBeneficiaryPayloadDto GetDefaultCreateBeneficiaryPayload()

@@ -27,26 +27,26 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryValidTestData
             };
 
             //***
-            var accountNumberLengthIs7ForAU = GetDefaultCreateBeneficiaryAustraliaPayload();
-            accountNumberLengthIs7ForAU.beneficiary.bank_details.account_number = "1234567";
+            var accountNumberLengthIs15ForAU = GetDefaultCreateBeneficiaryAustraliaPayload();
+            accountNumberLengthIs15ForAU.beneficiary.bank_details.account_number = "123456789012345";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "AU Account Number Length is 7",
-                    Payload = accountNumberLengthIs7ForAU
+                    _TestName = "AU Account Number Length is 15",
+                    Payload = accountNumberLengthIs15ForAU
                 }
             };
 
             //***
-            var accountNumberLengthIs9ForAU = GetDefaultCreateBeneficiaryAustraliaPayload();
-            accountNumberLengthIs9ForAU.beneficiary.bank_details.account_number = "123456789";
+            var accountNumberLengthIs20ForAU = GetDefaultCreateBeneficiaryAustraliaPayload();
+            accountNumberLengthIs20ForAU.beneficiary.bank_details.account_number = "12345678901234567890";
             yield return new CreateBeneficiaryRequestDto[]
             {
                 new()
                 {
-                    _TestName = "AU Account Number Length is 9",
-                    Payload = accountNumberLengthIs9ForAU
+                    _TestName = "AU Account Number Length is 20",
+                    Payload = accountNumberLengthIs20ForAU
                 }
             };
         }

@@ -429,6 +429,25 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryInvalidTestData
             };
 
             //***
+            var accountCurrencyInvalid = GetDefaultCreateBeneficiaryPayload();
+            accountCurrencyInvalid.beneficiary.bank_details.account_currency = "PPP";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Account Currency Invalid",
+                    Payload = accountCurrencyInvalid,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message =
+                            "Should be one of the following: [AUD, CAD, CNY, EUR, GBP, HKD, IDR, INR, JPY, MYR, NZD, PHP, SGD, THB, USD, VND, CHF, KRW, BDT, LKR, TRY, PKR, NPR, DKK, NOK, SEK, CZK, HUF, HRK, RON, PLN, MXN, ZAR, ILS, BHD, EGP, SAR, AED]",
+                        Source = "beneficiary.bank_details.account_currency"
+                    }
+                }
+            };
+
+            //***
             var accountCurrencyHasSpace = GetDefaultCreateBeneficiaryPayload();
             accountCurrencyHasSpace.beneficiary.bank_details.account_currency = " ";
             yield return new CreateBeneficiaryRequestDto[]
@@ -460,6 +479,60 @@ namespace Tests.TestDataFactory.BeneficiaryTestData.BeneficiaryInvalidTestData
                     {
                         Code = "payment_schema_validation_failed",
                         Message = "This field is required",
+                        Source = "beneficiary.bank_details.swift_code"
+                    }
+                }
+            };
+
+            //***
+            var swiftCodeEmpty = GetDefaultCreateBeneficiaryPayload();
+            swiftCodeEmpty.beneficiary.bank_details.swift_code = "";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Swift Code Empty",
+                    Payload = swiftCodeEmpty,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "This field is required",
+                        Source = "beneficiary.bank_details.swift_code"
+                    }
+                }
+            };
+
+            //***
+            var swiftCodeInvalid = GetDefaultCreateBeneficiaryPayload();
+            swiftCodeInvalid.beneficiary.bank_details.swift_code = "Invalid";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Swift Code Invalid",
+                    Payload = swiftCodeInvalid,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should be a valid and supported SWIFT code / BIC",
+                        Source = "beneficiary.bank_details.swift_code"
+                    }
+                }
+            };
+
+            //***
+            var swiftCodeHasSpace = GetDefaultCreateBeneficiaryPayload();
+            swiftCodeHasSpace.beneficiary.bank_details.swift_code = " ";
+            yield return new CreateBeneficiaryRequestDto[]
+            {
+                new()
+                {
+                    _TestName = "Swift Code Has Space",
+                    Payload = swiftCodeHasSpace,
+                    Expected = new
+                    {
+                        Code = "payment_schema_validation_failed",
+                        Message = "Should be a valid and supported SWIFT code / BIC",
                         Source = "beneficiary.bank_details.swift_code"
                     }
                 }
