@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration", "Integration\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{357DDE2E-BFC4-4D65-8182-2A32B49360E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationNunit", "IntegrationNunit\IntegrationNunit.csproj", "{9B3AD2BD-76EB-4FFB-8073-A8DDD68D5BBB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestsNunit", "TestsNunit", "{818A9F02-71BA-456E-8A92-E357BDEACF43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,8 +18,13 @@ Global
 		{BA7EBAA0-825F-4602-BF45-BD7856115F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7EBAA0-825F-4602-BF45-BD7856115F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA7EBAA0-825F-4602-BF45-BD7856115F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B3AD2BD-76EB-4FFB-8073-A8DDD68D5BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B3AD2BD-76EB-4FFB-8073-A8DDD68D5BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B3AD2BD-76EB-4FFB-8073-A8DDD68D5BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B3AD2BD-76EB-4FFB-8073-A8DDD68D5BBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA7EBAA0-825F-4602-BF45-BD7856115F6C} = {357DDE2E-BFC4-4D65-8182-2A32B49360E9}
+		{9B3AD2BD-76EB-4FFB-8073-A8DDD68D5BBB} = {818A9F02-71BA-456E-8A92-E357BDEACF43}
 	EndGlobalSection
 EndGlobal

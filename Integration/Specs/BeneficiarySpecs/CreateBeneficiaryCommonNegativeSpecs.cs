@@ -36,6 +36,7 @@ namespace Tests.Specs.BeneficiarySpecs
             Assert.Equal(testData.Expected.Code, dResponse.code);
             Assert.Equal(testData.Expected.Message, dResponse.message);
             Assert.Equal(testData.Expected.Source, dResponse.source);
+
         }
     }
 }
