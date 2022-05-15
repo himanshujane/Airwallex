@@ -51,5 +51,15 @@ namespace NunitTests.Utility
                 Encoding.Default,
                 "application/json");
         }
+        
+        //Deserialize XML Response
+        // public static async Task<DataResponseDto> DeserializeData(this HttpResponseMessage res)
+        // {
+        //     var resString = await res.Content.ReadAsStringAsync();
+        //     var reader = new StringReader(resString);
+        //     var serializer = new XmlSerializer(typeof(DataResponseDto));
+        //     var dResponse = (DataResponseDto) serializer.Deserialize(reader);
+        //     return dResponse;
+        // }
     }
 }

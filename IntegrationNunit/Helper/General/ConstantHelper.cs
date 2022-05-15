@@ -1,6 +1,8 @@
+using System.Reflection;
+
 namespace NunitTests.Helper.General
 {
-    public static class ConstantHelper
+    public class ConstantHelper
     {
         public const string HeaderKeyAuth = "Authorization";
 
@@ -12,5 +14,59 @@ namespace NunitTests.Helper.General
         public const string ErrorAccessDenied = "Access denied, authentication failed";
         public const string HeaderKeyXClientId = "x-client-id";
         public const string HeaderKeyXApi = "x-api-key";
+
+
+        public void ReplaceProperty(dynamic requestBody, string property, dynamic value)
+        {
+            var prop = requestBody.GetType().GetProperty(property, BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+                prop.SetValue(requestBody, value, null);
+
+            var subs = property.Split('.');
+            switch (subs[0])
+            {
+                case "Address":
+                {
+                    var prop2 = requestBody.Address.GetType()
+                        .GetProperty(subs[1], BindingFlags.Public | BindingFlags.Instance);
+                    if (null != prop2 && prop2.CanWrite)
+                        prop2.SetValue(requestBody.Address, value, null);
+                    break;
+                }
+            }
+        }
+        
+        // foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(rawContent))
+        // {
+        //     var key = descriptor.Name;
+        //     if (!key.StartsWith("xyz") || key == "abc") continue;
+        //     var value = descriptor.GetValue(rawContent);
+        //     content += value;
+        // }
+        
+        //Create MD5 Hash
+        // MD5 md5 = MD5.Create();
+        // byte[] inputBytes = Encoding.UTF8.GetBytes(content);
+        // byte[] hashBytes = md5.ComputeHash(inputBytes);
+        // StringBuilder hash = new StringBuilder();
+        //     foreach (var t in hashBytes) hash.Append(t.ToString("x2"));
+        //
+        // return hash.ToString();
+        
+        protected static Dictionary<string, string> ConvertToDictionary(dynamic obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+        }
+
+        public void PrintObject(dynamic obj)
+        {
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(obj))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(obj);
+                _output.WriteLine("{0} = {1}", name, value);
+            }
+        }
     }
 }
