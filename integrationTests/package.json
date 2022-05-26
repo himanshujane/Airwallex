@@ -1,0 +1,18 @@
+{
+  "name": "testSuite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Himanshu Jain",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.22.0",
+    "@types/mysql": "^2.15.21"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "mysql": "^2.18.1"
+  }
+}
